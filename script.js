@@ -9,13 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         step3: document.getElementById('step-3'),
         step4: document.getElementById('step-4'),
         step5: document.getElementById('step-5'),
+        step6: document.getElementById('step-6'),
+        step7: document.getElementById('step-7'),
         success: document.getElementById('success-screen')
     };
 
     const inputs = {
         accessCode: document.getElementById('access-code'),
-        finalCode: document.getElementById('final-code'),
-        step1Feedback: document.getElementById('step1-feedback')
+        step3Memory: document.getElementById('step3-memory'),
+        finalCode: document.getElementById('final-code')
     };
 
     const buttons = {
@@ -25,14 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const errors = {
         msg0: document.getElementById('error-msg-0'),
-        msg5: document.getElementById('error-msg-5')
+        msg7: document.getElementById('error-msg-7')
     };
 
-    const managerNote = document.getElementById('manager-note');
-
     let userSelections = {
-        trait: null,
-        privilege: null
+        privilege: null,
+        privilegeKey: null
     };
 
     // --- Loading Sequence ---
@@ -85,30 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Step 2: Visual Validation ---
-    window.handleVisualValidation = function () {
-        // Show manager note
-        managerNote.classList.remove('hidden');
-
-        // Wait 2.5s then go to Step 3
-        setTimeout(() => {
-            managerNote.classList.add('hidden');
-            nextStep(3);
-        }, 2500);
-    }
-
-    // --- Step 3: Trait Selection ---
-    window.saveTraitAndContinue = function () {
-        const selectedTrait = document.querySelector('input[name="trait"]:checked');
-        if (!selectedTrait) {
-            alert("Lütfen sizi en iyi anlatan özelliği seçiniz.");
-            return;
-        }
-        userSelections.trait = selectedTrait.value;
-        nextStep(4);
-    }
-
-    // --- Step 4 (Old 3): Privilege Selection ---
+    // --- Step 6 (Old 4): Privilege Selection ---
     window.goToFinalStep = function () {
         const selectedOption = document.querySelector('input[name="privilege"]:checked');
         if (!selectedOption) {
@@ -127,21 +104,23 @@ document.addEventListener('DOMContentLoaded', () => {
         userSelections.privilegeKey = val; // Store key for final logic
 
         // Populate Summary
-        document.getElementById('summary-trait').textContent = userSelections.trait;
-        document.getElementById('summary-privilege').textContent = userSelections.privilege;
+        const summaryPrivilege = document.getElementById('summary-privilege');
+        if (summaryPrivilege) {
+            summaryPrivilege.textContent = userSelections.privilege;
+        }
 
-        nextStep(5);
+        nextStep(7);
     }
 
-    // --- Step 5: Final Validation ---
+    // --- Step 7: Final Validation ---
     buttons.finish.addEventListener('click', () => {
         const val = inputs.finalCode.value.trim();
         // Check for "Koylu Kızı" (case insensitive)
         if (val.toLowerCase() === 'koylu kızı' || val.toLowerCase() === 'köylü kızı') {
-            errors.msg5.classList.add('hidden');
+            errors.msg7.classList.add('hidden');
             finalizeForm();
         } else {
-            errors.msg5.classList.remove('hidden');
+            errors.msg7.classList.remove('hidden');
         }
     });
 

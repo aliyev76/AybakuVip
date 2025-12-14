@@ -18,12 +18,6 @@
 
     <div class="background-overlay"></div>
 
-    <!-- Manager Note Toast -->
-    <div id="manager-note" class="manager-note hidden">
-        <span class="note-icon">✍️</span>
-        <span class="note-text">Yönetici Notu: Objektif değerlendirme yapıldı. Onaylandı.</span>
-    </div>
-
     <main class="container">
 
         <!-- Loading Screen -->
@@ -50,97 +44,168 @@
             </div>
         </div>
 
-        <!-- Step 1: Info Confirmation -->
+        <!-- Step 1: Visual Assessment (New) -->
         <div id="step-1" class="screen hidden">
             <div class="card fade-in-up">
-                <div class="header-badge">Adım 1/5</div>
-                <h2 class="title-serif">Temel Bilgilerin Onaylanması</h2>
-
-                <div class="info-grid">
-                    <div class="info-item">
-                        <label>Kullanıcı Kimliği</label>
-                        <input type="text" value="VIP-F-7890" disabled readonly>
-                    </div>
-                    <div class="info-item">
-                        <label>Tam Adınız</label>
-                        <input type="text" value="Fatima" disabled readonly>
-                    </div>
-                    <div class="info-item">
-                        <label>Kayıt Tarihi</label>
-                        <input type="text" value="Tanışma Yıldönümümüz" disabled readonly>
-                    </div>
-                </div>
-
-                <div class="optional-section">
-                    <p class="question-text small-margin">Size göre bu bilgilerin eksik veya yanlış olan bir yanı var
-                        mı? (Opsiyonel)</p>
-                    <textarea id="step1-feedback" class="text-input"
-                        placeholder="Varsa belirtiniz (Yoksa boş bırakın)..."></textarea>
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn-primary" onclick="nextStep(2)">Onaylıyorum ve İlerle</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Step 2: Visual Validation (New) -->
-        <div id="step-2" class="screen hidden">
-            <div class="card fade-in-up">
-                <div class="header-badge">Adım 2/5</div>
-                <h2 class="title-serif">Görsel Değerlendirme</h2>
+                <div class="header-badge">Adım 1/8</div>
+                <h2 class="title-serif">Kayıt Değerlendirmesi</h2>
 
                 <p class="question-text large-text">
-                    "Kulübümüzün görsel standartlarını belirleyen, eşsiz bir ışık ve çekiciliğe sahip olduğunuzu kabul
-                    ediyor musunuz?"
+                    "Kayıt Komitesine Yaptığınız İlk Görüşteki Etki göz önüne alındığında, aşağıdaki ifadenin doğru
+                    olduğunu onaylıyor musunuz?"
                 </p>
 
+                <div class="quote-box">
+                    "Bu kulübe seçilmemin en büyük nedeni, Yönetici'nin dikkatini anında çeken, ortalamanın çok
+                    üzerindeki görsel çekiciliğimdir."
+                </div>
+
                 <div class="btn-group">
-                    <button class="btn-primary" onclick="handleVisualValidation()">Evet, her ortamda parlarım</button>
-                    <button class="btn-secondary" onclick="handleVisualValidation()">Eh, fena sayılmam</button>
+                    <button class="btn-primary" onclick="nextStep(2)">Evet, Tamamen Doğru</button>
+                    <button class="btn-secondary" onclick="nextStep(2)">Hayır, Zekam Ön Plandadır</button>
                 </div>
             </div>
         </div>
 
-        <!-- Step 3: Character Traits (New) -->
-        <div id="step-3" class="screen hidden">
+        <!-- Step 2: Location Analysis (New) -->
+        <div id="step-2" class="screen hidden">
             <div class="card fade-in-up">
-                <div class="header-badge">Adım 3/5</div>
-                <h2 class="title-serif">Karakter Değerlendirmesi</h2>
-                <p class="instruction">Aşağıdaki karakter özelliklerinden hangisi, bu özel üyeliği hak ettiğinizin en
-                    büyük kanıtıdır?</p>
+                <div class="header-badge">Adım 2/8</div>
+                <h2 class="title-serif">Coğrafi Doğrulama</h2>
+
+                <p class="question-text">
+                    Yönetici'nin espriyle 'Dağlık Bölge' olarak nitelendirdiği coğrafi konuma yapılan ilk ziyarette,
+                    Yönetici hangi toplu taşıma aracını kullanmak zorunda kalmıştır?
+                </p>
 
                 <div class="options-container tight-gap">
                     <label class="option-card simple">
-                        <input type="radio" name="trait" value="Zeka">
+                        <input type="radio" name="location_joke" value="tren">
                         <div class="option-content simple-content">
-                            <h3>🧠 Keskin Zeka ve Hızlı Kavrayış</h3>
+                            <h3>Banliyö Treni</h3>
                         </div>
                     </label>
 
                     <label class="option-card simple">
-                        <input type="radio" name="trait" value="Mizah">
+                        <input type="radio" name="location_joke" value="otobus">
                         <div class="option-content simple-content">
-                            <h3>😂 Mizah Anlayışım ve Gülümsemem</h3>
+                            <h3>Şehirlerarası Otobüs</h3>
                         </div>
                     </label>
 
-                    <label class="option-card simple">
-                        <input type="radio" name="trait" value="Enerji">
+                    <label class="option-card simple special-option">
+                        <input type="radio" name="location_joke" value="minibus">
                         <div class="option-content simple-content">
-                            <h3>✨ Ortama Kattığım Pozitif Enerji</h3>
+                            <h3>Hala Gidip Geldiği O Minibüs/Dolmuş</h3>
                         </div>
                     </label>
                 </div>
 
-                <button class="btn-primary flow-btn" onclick="saveTraitAndContinue()">Seçimi Kaydet ve Devam Et</button>
+                <button class="btn-primary flow-btn" onclick="nextStep(3)">Doğrula ve İlerle</button>
             </div>
         </div>
 
-        <!-- Step 4: Privilege Selection (Old Step 3) -->
+        <!-- Step 3: Intellectual Interaction (New) -->
+        <div id="step-3" class="screen hidden">
+            <div class="card fade-in-up">
+                <div class="header-badge">Adım 3/8</div>
+                <h2 class="title-serif">Unutulan Ders</h2>
+
+                <p class="question-text">
+                    "Sana çok ilginç gelecek diyerek beni götürdüğünüz, ancak ismini ikimizin de unuttuğu o gizemli
+                    dersten sonra Yönetici'nin yaptığı ilk yorum neydi?"
+                </p>
+
+                <div class="input-group">
+                    <textarea id="step3-memory" class="text-input"
+                        placeholder="Hatırlıyorsanız yazın (Opsiyonel)..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-primary" onclick="nextStep(4)">Girişi Kaydet ve Devam Et</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Competition Analysis (New) -->
         <div id="step-4" class="screen hidden">
             <div class="card fade-in-up">
-                <div class="header-badge">Adım 4/5</div>
+                <div class="header-badge">Adım 4/8</div>
+                <h2 class="title-serif">Rekabet Analizi</h2>
+
+                <p class="question-text">
+                    Yönetici ile aranızdaki rekabet veritabanına göre, bugüne kadar Yöneticinizi <strong>tek
+                        yendiğiniz</strong> oyun, hangi şartlar altında gerçekleşmiştir?
+                </p>
+
+                <div class="options-container tight-gap">
+                    <label class="option-card simple">
+                        <input type="radio" name="game_joke" value="rules">
+                        <div class="option-content simple-content">
+                            <h3>Oyunun kurallarını değiştirdiğiniz için</h3>
+                        </div>
+                    </label>
+
+                    <label class="option-card simple">
+                        <input type="radio" name="game_joke" value="luck">
+                        <div class="option-content simple-content">
+                            <h3>Şansınız yaver gittiği için</h3>
+                        </div>
+                    </label>
+
+                    <label class="option-card simple special-option">
+                        <input type="radio" name="game_joke" value="team">
+                        <div class="option-content simple-content">
+                            <h3>Yönetici ile Eşleştiğiniz İçin (Takım Zaferi)</h3>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="btn-primary flow-btn" onclick="nextStep(5)">Veriyi Onayla ve İlerle</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Routine Compliment (New) -->
+        <div id="step-5" class="screen hidden">
+            <div class="card fade-in-up">
+                <div class="header-badge">Adım 5/8</div>
+                <h2 class="title-serif">Rutin İltifat</h2>
+
+                <p class="question-text">
+                    Yönetici, günlük hayatta gördüğünüzde genellikle tepkisini hangi davranışla belli eder?
+                </p>
+
+                <div class="options-container tight-gap">
+                    <label class="option-card simple">
+                        <input type="radio" name="routine_joke" value="jokes">
+                        <div class="option-content simple-content">
+                            <h3>Sinir bozucu şakalar yaparak</h3>
+                        </div>
+                    </label>
+
+                    <label class="option-card simple">
+                        <input type="radio" name="routine_joke" value="fail">
+                        <div class="option-content simple-content">
+                            <h3>Gülümsemeye çalışıp başarısız olarak</h3>
+                        </div>
+                    </label>
+
+                    <label class="option-card simple special-option">
+                        <input type="radio" name="routine_joke" value="smile">
+                        <div class="option-content simple-content">
+                            <h3>Anlamsızca Gülümseyip, Odak Noktasını Kaybederek</h3>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="btn-primary flow-btn" onclick="nextStep(6)">Devam Et</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Privilege Selection (Old Step 4) -->
+        <div id="step-6" class="screen hidden">
+            <div class="card fade-in-up">
+                <div class="header-badge">Adım 6/8</div>
                 <h2 class="title-serif">Ayrıcalık Seçimi</h2>
                 <p class="instruction">Aşağıdaki avantajlardan yalnızca birini seçiniz.</p>
 
@@ -177,15 +242,14 @@
             </div>
         </div>
 
-        <!-- Step 5: Final Definition (Old Step 4, updated) -->
-        <div id="step-5" class="screen hidden">
+        <!-- Step 7: Final Definition (Old Step 5) -->
+        <div id="step-7" class="screen hidden">
             <div class="card fade-in-up">
-                <div class="header-badge">Adım 5/5</div>
+                <div class="header-badge">Adım 7/8</div>
                 <h2 class="title-serif">Nihai Tanımlama</h2>
 
                 <div class="summary-box">
                     <p><strong>Aday:</strong> Fatima</p>
-                    <p><strong>Baskın Özellik:</strong> <span id="summary-trait">-</span></p>
                     <p><strong>Seçilen Ayrıcalık:</strong> <span id="summary-privilege">-</span></p>
                 </div>
 
@@ -194,7 +258,7 @@
                         nasıl tanımlarsınız?</p>
                     <input type="password" id="final-code" placeholder="Tanımını Yaz..." autocomplete="off">
                     <button id="btn-finish" class="btn-primary">Formu Gönder</button>
-                    <p id="error-msg-5" class="error-msg hidden">Yanlış cevap. İpucu: K... K...</p>
+                    <p id="error-msg-7" class="error-msg hidden">Yanlış cevap. İpucu: K... K...</p>
                 </div>
             </div>
         </div>
@@ -208,16 +272,16 @@
 
                 <div class="letter-content">
                     <p>Sayın <strong>Fatima</strong>,</p>
-                    <p>Tüm evraklarınız (ve eşsiz güzelliğiniz) Yönetim Kurulumuzca dikkatle incelenmiştir. VIP
-                        Davetiyenizin amacı, gerçek bir üyelik oluşturmak değil, hayatımda ne kadar özel, zeki ve göz
-                        alıcı bir yere sahip olduğunuzu resmiyetle bildirmektir.</p>
+                    <p>Tüm anılarımız (o minicik dağlık kampüs dahil) ve eşsiz çekiciliğiniz Yönetim Kurulumuzca
+                        dikkatle incelenmiştir. Bu form, bana getirdiğiniz tüm o 'dağları' ve benimle eşleştiğiniz için
+                        kazandığınız o tek oyunu hatırlatmaktan ibaretti.</p>
 
                     <p id="success-privilege-msg" class="highlight-paragraph"></p>
 
                     <div class="note-box">
                         <strong>Yönetim Kurulu Notu:</strong>
-                        <p>Bu üyelik, Fatima’nın yüzünü aydınlatan ışık, keskin zekası ve eşsiz espri yeteneği nedeniyle
-                            özel olarak atanmıştır.</p>
+                        <p>Bu üyelik, Tanışma Yıldönümümüzde Yönetici'nin dikkatini çeken <strong>parlak zekanız, eşsiz
+                                mizahınız ve daima pozitif enerjiniz</strong> nedeniyle özel olarak atanmıştır.</p>
                     </div>
 
                     <div class="signature">
