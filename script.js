@@ -28,10 +28,25 @@ document.addEventListener('DOMContentLoaded', () => {
         msg0: document.getElementById('error-msg-0')
     };
 
+    // Feedback Toast Elements
+    const feedbackToast = document.getElementById('feedback-toast');
+    const feedbackText = document.getElementById('feedback-text');
+
     let userSelections = {
         privilege: null,
         privilegeKey: null
     };
+
+    // --- Feedback Helper ---
+    function showFeedback(message, callback) {
+        feedbackText.textContent = message;
+        feedbackToast.classList.remove('hidden');
+
+        setTimeout(() => {
+            feedbackToast.classList.add('hidden');
+            if (callback) callback();
+        }, 2000); // Show for 2 seconds
+    }
 
     // --- Loading Sequence ---
     startLoading();
@@ -51,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 width++;
                 bar.style.width = width + '%';
             }
-        }, 30); // 30ms * 100 = 3000ms = 3s
+        }, 30);
     }
 
     // --- Navigation Helpers ---
@@ -68,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Step 0: Access Verification ---
     buttons.checkAccess.addEventListener('click', () => {
         const val = inputs.accessCode.value.trim();
-        // Case-insensitive check for "Ukala"
         if (val.toLowerCase() === 'ukala') {
             errors.msg0.classList.add('hidden');
             buttons.checkAccess.textContent = "Giriş Başarılı...";
@@ -83,8 +97,81 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Step 1: Visual Assessment ---
+    window.handleStep1 = function (choice) {
+        let msg = "";
+        if (choice === 'yes') {
+            msg = "Veritabanımız, Yönetici'nin ilk kayıt sırasındaki şaşkınlığını teyit ediyor. ✅";
+        } else {
+            msg = "Yönetici Notu: Zeka tartışılmaz, ancak ilk etki için görsel veri baskındır. 😉";
+        }
+        showFeedback(msg, () => nextStep(2));
+    }
+    // Update HTML buttons to call handleStep1
+
+    document.querySelector('#step-1 .btn-primary').onclick = () => handleStep1('yes');
+    document.querySelector('#step-1 .btn-secondary').onclick = () => handleStep1('no');
+
+
+    // --- Step 2: Location Analysis (Validation) ---
+    window.handleStep2 = function () {
+        const selected = document.querySelector('input[name="location_joke"]:checked');
+        if (!selected) { alert("Bir seçenek belirleyiniz."); return; }
+
+        const val = selected.value;
+        if (val === 'minibus') {
+            showFeedback("Doğru. Yönetici, o yolculuğun travmasını hala yaşıyor. 😅", () => nextStep(3));
+        } else {
+            showFeedback("Hayır. O kadar medeni bir taşıma aracı değildi. Lütfen tekrar düşünün!", null); // No callback = stay
+        }
+    }
+    document.querySelector('#step-2 button').onclick = handleStep2;
+
+
+    // --- Step 3: Intellectual Interaction ---
+    window.handleStep3 = function () {
+        // Just proceed, text is optional
+        showFeedback("Girişiniz kaydedildi. O dersin konusunu sonsuza dek unutmuş olabiliriz. 😂", () => nextStep(4));
+    }
+    document.querySelector('#step-3 button').onclick = handleStep3;
+
+
+    // --- Step 4: Competition Analysis (Validation) ---
+    window.handleStep4 = function () {
+        const selected = document.querySelector('input[name="game_joke"]:checked');
+        if (!selected) { alert("Bir seçenek belirleyiniz."); return; }
+
+        const val = selected.value;
+        if (val === 'team') {
+            showFeedback("Kesinlikle doğru. Yönetici'yi yenmenin tek yolu onunla aynı takımda olmaktır. 🤝", () => nextStep(5));
+        } else {
+            showFeedback("Hatalı. Yöneticinin galibiyet serisi bu kadar kolay bozulamaz. Tekrar deneyin.", null);
+        }
+    }
+    document.querySelector('#step-4 button').onclick = handleStep4;
+
+
+    // --- Step 5: Relationship Dynamics ---
+    window.handleStep5 = function () {
+        const selected = document.querySelector('input[name="bullying_reason"]:checked');
+        if (!selected) { alert("Bir seçenek belirleyiniz."); return; }
+
+        const val = selected.value;
+        let msg = "";
+        if (val === 'love') {
+            msg = "Tebrikler. Formun en duygusal sorusunu yanıtladınız. ❤️";
+        } else if (val === 'bully') {
+            msg = "Yönetici'nin itirazı var! Amacının sadece ilgi çekmek olduğunu belirtiyor. 😉";
+        } else {
+            msg = "Kısmen doğru, ama asıl motivasyon daha derinde. İlerleyebiliriz.";
+        }
+        showFeedback(msg, () => nextStep(6));
+    }
+    document.querySelector('#step-5 button').onclick = handleStep5;
+
+
     // --- Step 6: Privilege Selection ---
-    window.goToFinalStep = function () {
+    window.handleStep6 = function () {
         const selectedOption = document.querySelector('input[name="privilege"]:checked');
         if (!selectedOption) {
             alert("Lütfen bir ayrıcalık seçiniz.");
@@ -99,16 +186,24 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         userSelections.privilege = labels[val];
-        userSelections.privilegeKey = val; // Store key for final logic
+        userSelections.privilegeKey = val;
 
-        // Populate Summary
         const summaryPrivilege = document.getElementById('summary-privilege');
         if (summaryPrivilege) {
             summaryPrivilege.textContent = userSelections.privilege;
         }
 
-        nextStep(7);
+        let msg = "";
+        if (val === 'platinum') {
+            msg = "En cesur seçim! Yönetici'nin zamanını resmen talep ettiniz. 😎";
+        } else {
+            msg = "Zarif bir seçim. Unutmayın, üst seviyeler her zaman daha fazla maceradır. 🥂";
+        }
+
+        showFeedback(msg, () => nextStep(7));
     }
+    document.querySelector('#step-6 button').onclick = handleStep6;
+
 
     // --- Step 7: Final Confirmation ---
     buttons.finish.addEventListener('click', () => {
@@ -116,15 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function finalizeForm() {
-        // Prepare success message based on selection
         const msgEl = document.getElementById('success-privilege-msg');
-
         let text = "Seçtiğiniz ayrıcalık hemen devreye girmiştir.";
         if (userSelections.privilegeKey === 'platinum') {
             text += " 'Özel Kart'ınızın kullanımı için, <strong>Elnur</strong> en kısa sürede sizinle iletişime geçecektir.";
         }
-
-        msgEl.innerHTML = text; // Use innerHTML to handle bold tag
+        msgEl.innerHTML = text;
 
         Object.values(screens).forEach(el => el.classList.add('hidden'));
         screens.success.classList.remove('hidden');
