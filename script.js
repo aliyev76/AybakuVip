@@ -22,7 +22,7 @@ window.handleStep2 = function () {
 }
 
 window.handleStep3 = function () {
-    showFeedback("Girişiniz kaydedildi. O dersin konusunu sonsuza dek unutmuş olabiliriz. 😂", () => nextStep(4));
+    showFeedback("Girişiniz kaydedildi. O anıları ikimiz de unutmayacağız.", () => nextStep(4));
 }
 
 window.handleStep4 = function () {

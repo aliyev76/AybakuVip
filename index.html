@@ -47,7 +47,8 @@
         <div id="step-0" class="screen hidden">
             <div class="card fade-in">
                 <h1 class="title-serif">Giriş Doğrulama</h1>
-                <p class="subtitle">Bu özel daveti size yönlendiren kişinin lakabı nedir?</p>
+                <p class="subtitle">Bu özel davet linkini size ileten kişinin (Elnur'un) sizin taktığınız lakap nedir?
+                </p>
                 <div class="input-group">
                     <input type="text" id="access-code" placeholder="Lakabı giriniz..." autocomplete="off">
                     <button id="btn-check-access" class="btn-primary">Giriş Yap</button>
@@ -60,7 +61,7 @@
         <div id="step-1" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 1/8</div>
-                <h2 class="title-serif">Kayıt Değerlendirmesi</h2>
+                <h2 class="title-serif">VIP Başvuru Formu – Adım 1/8</h2>
 
                 <p class="question-text large-text">
                     "Kayıt Komitesine Yaptığınız İlk Görüşteki Etki göz önüne alındığında, aşağıdaki ifadenin doğru
@@ -69,12 +70,12 @@
 
                 <div class="quote-box">
                     "Bu kulübe seçilmemin en büyük nedeni, Yönetici'nin dikkatini anında çeken, ortalamanın çok
-                    üzerindeki görsel çekiciliğimdir."
+                    üzerindeki güzelliğimdir."
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn-primary" onclick="nextStep(2)">Evet, Tamamen Doğru</button>
-                    <button class="btn-secondary" onclick="nextStep(2)">Hayır, Zekam Ön Plandadır</button>
+                    <button class="btn-primary" onclick="handleStep1('yes')">Evet, Tamamen Doğru</button>
+                    <button class="btn-secondary" onclick="handleStep1('no')">Hayır, Zekam Ön Plandadır</button>
                 </div>
             </div>
         </div>
@@ -113,7 +114,7 @@
                     </label>
                 </div>
 
-                <button class="btn-primary flow-btn" onclick="nextStep(3)">Doğrula ve İlerle</button>
+                <button class="btn-primary flow-btn" onclick="handleStep2()">Doğrula ve İlerle</button>
             </div>
         </div>
 
@@ -121,11 +122,11 @@
         <div id="step-3" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 3/8</div>
-                <h2 class="title-serif">Unutulan Ders</h2>
+                <h2 class="title-serif">VIP Başvuru Formu – Adım 3/8 (Özel Anı)</h2>
 
                 <p class="question-text">
-                    "Sana çok ilginç gelecek diyerek beni götürdüğünüz, ancak ismini ikimizin de unuttuğu o gizemli
-                    dersten sonra Yönetici'nin yaptığı ilk yorum neydi?"
+                    "Beni o 'dağlık' kampüsünüze davet ettiğiniz gün, o gizemli dersin içeriğinden bağımsız olarak,
+                    aklında kalan en güzel şey nedir?"
                 </p>
 
                 <div class="input-group">
@@ -134,7 +135,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn-primary" onclick="nextStep(4)">Girişi Kaydet ve Devam Et</button>
+                    <button class="btn-primary" onclick="handleStep3()">Girişi Kaydet ve Devam Et</button>
                 </div>
             </div>
         </div>
@@ -173,7 +174,7 @@
                     </label>
                 </div>
 
-                <button class="btn-primary flow-btn" onclick="nextStep(5)">Veriyi Onayla ve İlerle</button>
+                <button class="btn-primary flow-btn" onclick="handleStep4()">Veriyi Onayla ve İlerle</button>
             </div>
         </div>
 
@@ -211,7 +212,7 @@
                     </label>
                 </div>
 
-                <button class="btn-primary flow-btn" onclick="nextStep(6)">Devam Et</button>
+                <button class="btn-primary flow-btn" onclick="handleStep5()">Devam Et</button>
             </div>
         </div>
 
@@ -252,7 +253,7 @@
                     </label>
                 </div>
 
-                <button class="btn-primary flow-btn" onclick="goToFinalStep()">Seçimi Kaydet ve Son Adıma Geç</button>
+                <button class="btn-primary flow-btn" onclick="handleStep6()">Seçimi Kaydet ve Son Adıma Geç</button>
             </div>
         </div>
 
@@ -281,21 +282,23 @@
         <div id="success-screen" class="screen hidden">
             <div class="card success-card pop-in">
                 <div class="success-icon">💖</div>
-                <h1 class="title-serif gold-text">KUTLU OLSUN!</h1>
-                <h3 class="subtitle">PLATINUM KALP ÜYELİĞİNİZ RESMEN ONAYLANDI</h3>
+                <h1 class="title-serif gold-text">KUTLU OLSUN: PLATINUM KALP ÜYELİĞİNİZ RESMEN ONAYLANDI!</h1>
 
                 <div class="letter-content">
                     <p>Sevgili <strong>Fatima</strong>,</p>
-                    <p>Tüm anılarımız (o dağlık kampüs şakası dahil) ve <strong>göz alıcı çekiciliğiniz</strong> Yönetim
-                        Kurulumuzca dikkatle incelenmiştir. Bu formun amacı, size ne kadar değer verdiğimi resmiyetle
-                        kanıtlamaktı.</p>
+                    <p>Tüm anılarımız (o dağlık kampüs şakası dahil) ve <strong>göz kamaştıran güzelliğiniz</strong>
+                        Yönetim Kurulumuzca dikkatle incelenmiştir. Bu formun amacı, size ne kadar değer verdiğimi
+                        resmiyetle kanıtlamaktı.</p>
 
                     <p id="success-privilege-msg" class="highlight-paragraph"></p>
 
                     <div class="note-box">
                         <strong>Kurulumuzun Kararı:</strong>
-                        <p>Bu üyelik, Tanışma Yıldönümümüz'den beri hayatımı aydınlatan <strong>parlak zekanız, eşsiz
-                                mizahınız ve daima pozitif enerjiniz</strong> nedeniyle özel olarak atanmıştır.</p>
+                        <p>Yönetim Kurulumuz, bu üyeliğin sadece size özel olduğunu ve gerçek hayatta bir karşılığı
+                            bulunmadığını onaylar. Varlığınız ve eşsiz güzelliğinizle, kulübün tüm kurallarını çoktan
+                            geçersiz kıldınız. Bu üyelik, bir seçimden öte Yönetici için bir zorunluluktur. Güzelliğiniz
+                            ve zekanızla kuralları çiğnediğiniz için, pozitif enerjiniz ve eşsiz kişiliğiniz benim için
+                            en büyük ödüldür. Hiçbir 'VIP' etiketi, size olan bu değeri tanımlayamaz.</p>
                     </div>
 
                     <div class="signature">
