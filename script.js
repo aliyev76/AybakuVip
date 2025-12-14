@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Encode for URL
         const encodedText = encodeURIComponent(text);
-        const phoneNumber = "905000000000"; // Placeholder - User to update
+        const phoneNumber = "905519815916"; // Placeholder - User to update
         const url = `https://wa.me/${phoneNumber}?text=${encodedText}`;
 
         window.open(url, '_blank');
