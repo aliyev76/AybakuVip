@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,24 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="background-overlay"></div>
 
+    <!-- Manager Note Toast -->
+    <div id="manager-note" class="manager-note hidden">
+        <span class="note-icon">✍️</span>
+        <span class="note-text">Yönetici Notu: Objektif değerlendirme yapıldı. Onaylandı.</span>
+    </div>
+
     <main class="container">
-        
+
         <!-- Loading Screen -->
         <div id="loading-screen" class="screen">
             <div class="loader-content">
@@ -43,9 +53,9 @@
         <!-- Step 1: Info Confirmation -->
         <div id="step-1" class="screen hidden">
             <div class="card fade-in-up">
-                <div class="header-badge">Adım 1/4</div>
+                <div class="header-badge">Adım 1/5</div>
                 <h2 class="title-serif">Temel Bilgilerin Onaylanması</h2>
-                
+
                 <div class="info-grid">
                     <div class="info-item">
                         <label>Kullanıcı Kimliği</label>
@@ -61,38 +71,78 @@
                     </div>
                 </div>
 
-                <p class="question-text">Yukarıdaki bilgilerin, Yönetim Kurulunun En Değerli Adayı'na ait olduğunu onaylıyor musunuz?</p>
+                <div class="optional-section">
+                    <p class="question-text small-margin">Size göre bu bilgilerin eksik veya yanlış olan bir yanı var
+                        mı? (Opsiyonel)</p>
+                    <textarea id="step1-feedback" class="text-input"
+                        placeholder="Varsa belirtiniz (Yoksa boş bırakın)..."></textarea>
+                </div>
 
                 <div class="btn-group">
-                    <button class="btn-primary" onclick="nextStep(2)">Evet, Onaylıyorum</button>
-                    <button class="btn-secondary" onclick="handleModesty()">Hayır, Değil</button>
+                    <button class="btn-primary" onclick="nextStep(2)">Onaylıyorum ve İlerle</button>
                 </div>
             </div>
         </div>
 
-        <!-- Step 2: Qualification -->
+        <!-- Step 2: Visual Validation (New) -->
         <div id="step-2" class="screen hidden">
             <div class="card fade-in-up">
-                <div class="header-badge">Adım 2/4</div>
-                <h2 class="title-serif">Nitelik Doğrulaması</h2>
-                
+                <div class="header-badge">Adım 2/5</div>
+                <h2 class="title-serif">Görsel Değerlendirme</h2>
+
                 <p class="question-text large-text">
-                    "Bu özel üyeliği almanızın temel gerekçesi, 'Bu kulübün standartlarını karşılayacak eşsiz bir zeka ve göz alıcı bir enerjiye' sahip olmanız mıdır?"
+                    "Kulübümüzün görsel standartlarını belirleyen, eşsiz bir ışık ve çekiciliğe sahip olduğunuzu kabul
+                    ediyor musunuz?"
                 </p>
 
                 <div class="btn-group">
-                    <button class="btn-primary" onclick="nextStep(3)">Kesinlikle Öyle</button>
-                    <button class="btn-secondary" onclick="nextStep(3)">Mütevazı Kalayım</button>
+                    <button class="btn-primary" onclick="handleVisualValidation()">Evet, her ortamda parlarım</button>
+                    <button class="btn-secondary" onclick="handleVisualValidation()">Eh, fena sayılmam</button>
                 </div>
             </div>
         </div>
 
-        <!-- Step 3: Privilege Selection -->
+        <!-- Step 3: Character Traits (New) -->
         <div id="step-3" class="screen hidden">
             <div class="card fade-in-up">
-                <div class="header-badge">Adım 3/4</div>
+                <div class="header-badge">Adım 3/5</div>
+                <h2 class="title-serif">Karakter Değerlendirmesi</h2>
+                <p class="instruction">Aşağıdaki karakter özelliklerinden hangisi, bu özel üyeliği hak ettiğinizin en
+                    büyük kanıtıdır?</p>
+
+                <div class="options-container tight-gap">
+                    <label class="option-card simple">
+                        <input type="radio" name="trait" value="Zeka">
+                        <div class="option-content simple-content">
+                            <h3>🧠 Keskin Zeka ve Hızlı Kavrayış</h3>
+                        </div>
+                    </label>
+
+                    <label class="option-card simple">
+                        <input type="radio" name="trait" value="Mizah">
+                        <div class="option-content simple-content">
+                            <h3>😂 Mizah Anlayışım ve Gülümsemem</h3>
+                        </div>
+                    </label>
+
+                    <label class="option-card simple">
+                        <input type="radio" name="trait" value="Enerji">
+                        <div class="option-content simple-content">
+                            <h3>✨ Ortama Kattığım Pozitif Enerji</h3>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="btn-primary flow-btn" onclick="saveTraitAndContinue()">Seçimi Kaydet ve Devam Et</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Privilege Selection (Old Step 3) -->
+        <div id="step-4" class="screen hidden">
+            <div class="card fade-in-up">
+                <div class="header-badge">Adım 4/5</div>
                 <h2 class="title-serif">Ayrıcalık Seçimi</h2>
-                <p class="instruction">Aşağıdaki avantajlardan yalnızca birini seçerek üyeliğinizi tamamlayınız.</p>
+                <p class="instruction">Aşağıdaki avantajlardan yalnızca birini seçiniz.</p>
 
                 <div class="options-container">
                     <label class="option-card">
@@ -123,27 +173,28 @@
                     </label>
                 </div>
 
-                <button class="btn-primary flow-btn" onclick="goToSummary()">Seçimi Kaydet ve Devam Et</button>
+                <button class="btn-primary flow-btn" onclick="goToFinalStep()">Seçimi Kaydet ve Son Adıma Geç</button>
             </div>
         </div>
 
-        <!-- Step 4: Summary & Final Code -->
-        <div id="step-4" class="screen hidden">
+        <!-- Step 5: Final Definition (Old Step 4, updated) -->
+        <div id="step-5" class="screen hidden">
             <div class="card fade-in-up">
-                <div class="header-badge">Adım 4/4</div>
-                <h2 class="title-serif">Genel Değerlendirme ve Onay</h2>
-                
+                <div class="header-badge">Adım 5/5</div>
+                <h2 class="title-serif">Nihai Tanımlama</h2>
+
                 <div class="summary-box">
                     <p><strong>Aday:</strong> Fatima</p>
-                    <p><strong>Nitelik:</strong> Eşsiz Zeka & Enerji</p>
-                    <p><strong>Seçilen Ayrıcalık:</strong> <span id="selected-privilege-display">-</span></p>
+                    <p><strong>Baskın Özellik:</strong> <span id="summary-trait">-</span></p>
+                    <p><strong>Seçilen Ayrıcalık:</strong> <span id="summary-privilege">-</span></p>
                 </div>
 
                 <div class="final-auth">
-                    <p class="label-text">Son Onay İçin Gizli Kodu Giriniz:</p>
-                    <input type="password" id="final-code" placeholder="Gizli Kod" autocomplete="off">
+                    <p class="label-text">Bu kulübün Kurucu Yöneticisinin (Elnur) gözünde kendinizi en dürüst şekilde
+                        nasıl tanımlarsınız?</p>
+                    <input type="password" id="final-code" placeholder="Tanımını Yaz..." autocomplete="off">
                     <button id="btn-finish" class="btn-primary">Formu Gönder</button>
-                    <p id="error-msg-4" class="error-msg hidden">Kod Hatalı. İpucu: Biz.</p>
+                    <p id="error-msg-5" class="error-msg hidden">Yanlış cevap. İpucu: K... K...</p>
                 </div>
             </div>
         </div>
@@ -154,16 +205,19 @@
                 <div class="success-icon">💖</div>
                 <h1 class="title-serif gold-text">KUTLU OLSUN!</h1>
                 <h3 class="subtitle">PLATINUM KALP ÜYELİĞİNİZ RESMEN ONAYLANDI</h3>
-                
+
                 <div class="letter-content">
                     <p>Sayın <strong>Fatima</strong>,</p>
-                    <p>Bu form sadece sizin için özel olarak hazırlandı. Gerçek bir üyelik oluşturmak değil, hayatımda ne kadar özel bir yere sahip olduğunuzu resmiyetle bildirmektir.</p>
-                    
+                    <p>Tüm evraklarınız (ve eşsiz güzelliğiniz) Yönetim Kurulumuzca dikkatle incelenmiştir. VIP
+                        Davetiyenizin amacı, gerçek bir üyelik oluşturmak değil, hayatımda ne kadar özel, zeki ve göz
+                        alıcı bir yere sahip olduğunuzu resmiyetle bildirmektir.</p>
+
                     <p id="success-privilege-msg" class="highlight-paragraph"></p>
 
                     <div class="note-box">
                         <strong>Yönetim Kurulu Notu:</strong>
-                        <p>Bu üyelik, Fatima’nın parlak zekası, eşsiz gülümsemesi ve ortama kattığı pozitif enerji nedeniyle özel olarak atanmıştır.</p>
+                        <p>Bu üyelik, Fatima’nın yüzünü aydınlatan ışık, keskin zekası ve eşsiz espri yeteneği nedeniyle
+                            özel olarak atanmıştır.</p>
                     </div>
 
                     <div class="signature">
@@ -178,4 +232,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

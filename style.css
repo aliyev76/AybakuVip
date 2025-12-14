@@ -7,6 +7,7 @@
     --burgundy: #800020;
     --burgundy-bright: #a01030;
     --transition-speed: 0.4s;
+    --success-green: #2ecc71;
 }
 
 * {
@@ -90,7 +91,7 @@ body {
     background-color: var(--card-bg);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     width: 100%;
     text-align: center;
     border: 1px solid #222;
@@ -109,14 +110,16 @@ body {
 }
 
 /* Inputs & Buttons */
-.input-group, .final-auth {
+.input-group,
+.final-auth {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
 }
 
-input {
+input,
+textarea {
     background: #1e1e1e;
     border: 1px solid #333;
     padding: 12px;
@@ -127,9 +130,17 @@ input {
     width: 100%;
     outline: none;
     transition: border-color 0.3s;
+    font-family: 'Inter', sans-serif;
 }
 
-input:focus {
+textarea {
+    text-align: left;
+    min-height: 80px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
     border-color: var(--gold);
 }
 
@@ -220,11 +231,26 @@ input:disabled {
     font-family: 'Playfair Display', serif;
 }
 
+.question-text.small-margin {
+    margin: 10px 0;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+.optional-section {
+    margin-top: 20px;
+    text-align: left;
+}
+
 /* Step 3 Options */
 .options-container {
     display: grid;
     gap: 15px;
     margin: 20px 0;
+}
+
+.options-container.tight-gap {
+    gap: 10px;
 }
 
 .option-card {
@@ -252,6 +278,12 @@ input:disabled {
     gap: 5px;
 }
 
+.option-content.simple-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 12px;
+}
+
 .option-content .icon {
     grid-row: 1 / 3;
     font-size: 1.5rem;
@@ -273,19 +305,19 @@ input:disabled {
     line-height: 1.3;
 }
 
-.option-card input:checked + .option-content {
+.option-card input:checked+.option-content {
     border-color: var(--gold);
     background: #252525;
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
-.option-card.special-option input:checked + .option-content {
+.option-card.special-option input:checked+.option-content {
     border-color: var(--burgundy-bright);
     box-shadow: 0 0 15px rgba(160, 16, 48, 0.4);
 }
 
 .option-card.special-option h3 {
-    color: var(--burgundy-bright); /* Make Platinum standout */
+    color: var(--burgundy-bright);
 }
 
 /* Success Screen */
@@ -334,10 +366,51 @@ input:disabled {
     color: var(--gold);
 }
 
+/* Manager Note Toast */
+.manager-note {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #252525;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 12px 20px;
+    border-radius: 30px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    animation: slideDown 0.5s ease-out;
+}
+
+.note-icon {
+    font-size: 1.2rem;
+}
+
+.note-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translate(-50%, -100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
 /* Loading */
 .loader-content {
     text-align: center;
 }
+
 .heart-pulse {
     font-size: 3rem;
     margin-bottom: 15px;
@@ -362,9 +435,20 @@ input:disabled {
 
 /* Animations */
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .fade-in {
@@ -380,16 +464,35 @@ input:disabled {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes popIn {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
