@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özel Davetli VIP Üyelik Formu</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-overlay"></div>
+
+    <main class="container">
+        
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen">
+            <div class="loader-content">
+                <div class="heart-pulse">❤️</div>
+                <h2>Özel Erişim İzni Doğrulanıyor...</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 0: Access Verification -->
+        <div id="step-0" class="screen hidden">
+            <div class="card fade-in">
+                <h1 class="title-serif">Giriş Doğrulama</h1>
+                <p class="subtitle">Bu özel daveti size yönlendiren kişinin lakabı nedir?</p>
+                <div class="input-group">
+                    <input type="text" id="access-code" placeholder="Lakabı giriniz..." autocomplete="off">
+                    <button id="btn-check-access" class="btn-primary">Giriş Yap</button>
+                </div>
+                <p id="error-msg-0" class="error-msg hidden">Erişim Reddedildi. Tanıdık gelmedi.</p>
+            </div>
+        </div>
+
+        <!-- Step 1: Info Confirmation -->
+        <div id="step-1" class="screen hidden">
+            <div class="card fade-in-up">
+                <div class="header-badge">Adım 1/4</div>
+                <h2 class="title-serif">Temel Bilgilerin Onaylanması</h2>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Kullanıcı Kimliği</label>
+                        <input type="text" value="VIP-F-7890" disabled readonly>
+                    </div>
+                    <div class="info-item">
+                        <label>Tam Adınız</label>
+                        <input type="text" value="Fatima" disabled readonly>
+                    </div>
+                    <div class="info-item">
+                        <label>Kayıt Tarihi</label>
+                        <input type="text" value="Tanışma Yıldönümümüz" disabled readonly>
+                    </div>
+                </div>
+
+                <p class="question-text">Yukarıdaki bilgilerin, Yönetim Kurulunun En Değerli Adayı'na ait olduğunu onaylıyor musunuz?</p>
+
+                <div class="btn-group">
+                    <button class="btn-primary" onclick="nextStep(2)">Evet, Onaylıyorum</button>
+                    <button class="btn-secondary" onclick="handleModesty()">Hayır, Değil</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Qualification -->
+        <div id="step-2" class="screen hidden">
+            <div class="card fade-in-up">
+                <div class="header-badge">Adım 2/4</div>
+                <h2 class="title-serif">Nitelik Doğrulaması</h2>
+                
+                <p class="question-text large-text">
+                    "Bu özel üyeliği almanızın temel gerekçesi, 'Bu kulübün standartlarını karşılayacak eşsiz bir zeka ve göz alıcı bir enerjiye' sahip olmanız mıdır?"
+                </p>
+
+                <div class="btn-group">
+                    <button class="btn-primary" onclick="nextStep(3)">Kesinlikle Öyle</button>
+                    <button class="btn-secondary" onclick="nextStep(3)">Mütevazı Kalayım</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Privilege Selection -->
+        <div id="step-3" class="screen hidden">
+            <div class="card fade-in-up">
+                <div class="header-badge">Adım 3/4</div>
+                <h2 class="title-serif">Ayrıcalık Seçimi</h2>
+                <p class="instruction">Aşağıdaki avantajlardan yalnızca birini seçerek üyeliğinizi tamamlayınız.</p>
+
+                <div class="options-container">
+                    <label class="option-card">
+                        <input type="radio" name="privilege" value="silver">
+                        <div class="option-content">
+                            <div class="icon">☕</div>
+                            <h3>Gümüş Üyelik</h3>
+                            <p>Benden sınırsız kahve/çay ısmarlama hakkı.</p>
+                        </div>
+                    </label>
+
+                    <label class="option-card">
+                        <input type="radio" name="privilege" value="gold">
+                        <div class="option-content">
+                            <div class="icon">📚</div>
+                            <h3>Altın Üyelik</h3>
+                            <p>İstenildiğinde, ders çalışma molası garantili "Study Date" ayrıcalığı.</p>
+                        </div>
+                    </label>
+
+                    <label class="option-card special-option">
+                        <input type="radio" name="privilege" value="platinum">
+                        <div class="option-content">
+                            <div class="icon">💎</div>
+                            <h3>Platinum Kalp</h3>
+                            <p>Bir kez kullanılabilir "Özel Kart" hakkı. Tarih ve mekan sizin tarafınızdan seçilir.</p>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="btn-primary flow-btn" onclick="goToSummary()">Seçimi Kaydet ve Devam Et</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Summary & Final Code -->
+        <div id="step-4" class="screen hidden">
+            <div class="card fade-in-up">
+                <div class="header-badge">Adım 4/4</div>
+                <h2 class="title-serif">Genel Değerlendirme ve Onay</h2>
+                
+                <div class="summary-box">
+                    <p><strong>Aday:</strong> Fatima</p>
+                    <p><strong>Nitelik:</strong> Eşsiz Zeka & Enerji</p>
+                    <p><strong>Seçilen Ayrıcalık:</strong> <span id="selected-privilege-display">-</span></p>
+                </div>
+
+                <div class="final-auth">
+                    <p class="label-text">Son Onay İçin Gizli Kodu Giriniz:</p>
+                    <input type="password" id="final-code" placeholder="Gizli Kod" autocomplete="off">
+                    <button id="btn-finish" class="btn-primary">Formu Gönder</button>
+                    <p id="error-msg-4" class="error-msg hidden">Kod Hatalı. İpucu: Biz.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Screen -->
+        <div id="success-screen" class="screen hidden">
+            <div class="card success-card pop-in">
+                <div class="success-icon">💖</div>
+                <h1 class="title-serif gold-text">KUTLU OLSUN!</h1>
+                <h3 class="subtitle">PLATINUM KALP ÜYELİĞİNİZ RESMEN ONAYLANDI</h3>
+                
+                <div class="letter-content">
+                    <p>Sayın <strong>Fatima</strong>,</p>
+                    <p>Bu form sadece sizin için özel olarak hazırlandı. Gerçek bir üyelik oluşturmak değil, hayatımda ne kadar özel bir yere sahip olduğunuzu resmiyetle bildirmektir.</p>
+                    
+                    <p id="success-privilege-msg" class="highlight-paragraph"></p>
+
+                    <div class="note-box">
+                        <strong>Yönetim Kurulu Notu:</strong>
+                        <p>Bu üyelik, Fatima’nın parlak zekası, eşsiz gülümsemesi ve ortama kattığı pozitif enerji nedeniyle özel olarak atanmıştır.</p>
+                    </div>
+
+                    <div class="signature">
+                        <p>Kurucu ve Tek Yetkili Yönetici</p>
+                        <p class="signature-name">Elnur ("Ukala")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
