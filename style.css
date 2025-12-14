@@ -4,10 +4,11 @@
     --text-color: #e0e0e0;
     --gold: #D4AF37;
     --gold-dim: #aa8c2c;
-    --burgundy: #800020;
-    --burgundy-bright: #a01030;
+    --burgundy: #D81159;
+    /* Bright pinkish-red for emphasis */
+    --burgundy-dark: #800020;
+    --red-glow: rgba(216, 17, 89, 0.5);
     --transition-speed: 0.4s;
-    --success-green: #2ecc71;
 }
 
 * {
@@ -176,6 +177,11 @@ input:disabled {
     width: 100%;
 }
 
+.btn-success {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+}
+
 .btn-primary:active {
     transform: scale(0.98);
 }
@@ -281,7 +287,7 @@ input:disabled {
 .option-content.simple-content {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 12px;
+    padding: 15px;
 }
 
 .option-content .icon {
@@ -312,13 +318,22 @@ input:disabled {
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
-.option-card.special-option input:checked+.option-content {
-    border-color: var(--burgundy-bright);
-    box-shadow: 0 0 15px rgba(160, 16, 48, 0.4);
+/* Highlights */
+
+/* Red Highlight Class for Special Options */
+.option-card.highlight-red input:checked+.option-content {
+    border-color: var(--burgundy);
+    box-shadow: 0 0 15px var(--red-glow);
 }
 
-.option-card.special-option h3 {
-    color: var(--burgundy-bright);
+.option-card.highlight-red h3 {
+    color: var(--burgundy);
+    /* Make the text pop too */
+    font-weight: 700;
+}
+
+.option-card.highlight-red.special-option h3 {
+    color: var(--burgundy);
 }
 
 /* Success Screen */

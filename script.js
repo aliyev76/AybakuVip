@@ -16,8 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const inputs = {
         accessCode: document.getElementById('access-code'),
-        step3Memory: document.getElementById('step3-memory'),
-        finalCode: document.getElementById('final-code')
+        step3Memory: document.getElementById('step3-memory')
     };
 
     const buttons = {
@@ -26,8 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const errors = {
-        msg0: document.getElementById('error-msg-0'),
-        msg7: document.getElementById('error-msg-7')
+        msg0: document.getElementById('error-msg-0')
     };
 
     let userSelections = {
@@ -85,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Step 6 (Old 4): Privilege Selection ---
+    // --- Step 6: Privilege Selection ---
     window.goToFinalStep = function () {
         const selectedOption = document.querySelector('input[name="privilege"]:checked');
         if (!selectedOption) {
@@ -97,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const labels = {
             silver: "Gümüş Üyelik (Sınırsız Kahve/Çay)",
             gold: "Altın Üyelik (Study Date Garantisi)",
-            platinum: "Platinum Kalp (Özel Kart)"
+            platinum: "Platinum Kalp Üyeliği (Özel Kart)"
         };
 
         userSelections.privilege = labels[val];
@@ -112,16 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
         nextStep(7);
     }
 
-    // --- Step 7: Final Validation ---
+    // --- Step 7: Final Confirmation ---
     buttons.finish.addEventListener('click', () => {
-        const val = inputs.finalCode.value.trim();
-        // Check for "Koylu Kızı" (case insensitive)
-        if (val.toLowerCase() === 'koylu kızı' || val.toLowerCase() === 'köylü kızı') {
-            errors.msg7.classList.add('hidden');
-            finalizeForm();
-        } else {
-            errors.msg7.classList.remove('hidden');
-        }
+        finalizeForm();
     });
 
     function finalizeForm() {
@@ -130,10 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let text = "Seçtiğiniz ayrıcalık hemen devreye girmiştir.";
         if (userSelections.privilegeKey === 'platinum') {
-            text += " 'Özel Kart'ınızın kullanımı için, yönetici (yani ben) en kısa sürede sizinle iletişime geçecektir.";
+            text += " 'Özel Kart'ınızın kullanımı için, <strong>Elnur</strong> en kısa sürede sizinle iletişime geçecektir.";
         }
 
-        msgEl.textContent = text;
+        msgEl.innerHTML = text; // Use innerHTML to handle bold tag
 
         Object.values(screens).forEach(el => el.classList.add('hidden'));
         screens.success.classList.remove('hidden');
@@ -142,9 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Enter key support
     inputs.accessCode.addEventListener('keyup', (e) => {
         if (e.key === 'Enter') buttons.checkAccess.click();
-    });
-    inputs.finalCode.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') buttons.finish.click();
     });
 
 });

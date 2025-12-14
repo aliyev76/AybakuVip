@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <!-- Step 1: Visual Assessment (New) -->
+        <!-- Step 1: Visual Assessment -->
         <div id="step-1" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 1/8</div>
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <!-- Step 2: Location Analysis (New) -->
+        <!-- Step 2: Location Analysis -->
         <div id="step-2" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 2/8</div>
@@ -80,23 +80,23 @@
 
                 <div class="options-container tight-gap">
                     <label class="option-card simple">
-                        <input type="radio" name="location_joke" value="tren">
-                        <div class="option-content simple-content">
-                            <h3>Banliyö Treni</h3>
-                        </div>
-                    </label>
-
-                    <label class="option-card simple">
                         <input type="radio" name="location_joke" value="otobus">
                         <div class="option-content simple-content">
                             <h3>Şehirlerarası Otobüs</h3>
                         </div>
                     </label>
 
-                    <label class="option-card simple special-option">
+                    <label class="option-card simple highlight-red">
                         <input type="radio" name="location_joke" value="minibus">
                         <div class="option-content simple-content">
                             <h3>Hala Gidip Geldiği O Minibüs/Dolmuş</h3>
+                        </div>
+                    </label>
+
+                    <label class="option-card simple">
+                        <input type="radio" name="location_joke" value="tren">
+                        <div class="option-content simple-content">
+                            <h3>Banliyö Treni</h3>
                         </div>
                     </label>
                 </div>
@@ -105,7 +105,7 @@
             </div>
         </div>
 
-        <!-- Step 3: Intellectual Interaction (New) -->
+        <!-- Step 3: Intellectual Interaction -->
         <div id="step-3" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 3/8</div>
@@ -127,7 +127,7 @@
             </div>
         </div>
 
-        <!-- Step 4: Competition Analysis (New) -->
+        <!-- Step 4: Competition Analysis -->
         <div id="step-4" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 4/8</div>
@@ -153,7 +153,7 @@
                         </div>
                     </label>
 
-                    <label class="option-card simple special-option">
+                    <label class="option-card simple highlight-red">
                         <input type="radio" name="game_joke" value="team">
                         <div class="option-content simple-content">
                             <h3>Yönetici ile Eşleştiğiniz İçin (Takım Zaferi)</h3>
@@ -165,35 +165,36 @@
             </div>
         </div>
 
-        <!-- Step 5: Routine Compliment (New) -->
+        <!-- Step 5: Relationship Dynamics (New Bullying Question) -->
         <div id="step-5" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 5/8</div>
-                <h2 class="title-serif">Rutin İltifat</h2>
+                <h2 class="title-serif">İlişki Dinamikleri</h2>
 
                 <p class="question-text">
-                    Yönetici, günlük hayatta gördüğünüzde genellikle tepkisini hangi davranışla belli eder?
+                    "Bu davetiyeyi size gönderen kişinin (Elnur), size sık sık takılmasının/gündelik zorbalık yapmasının
+                    asıl nedeni nedir?"
                 </p>
 
                 <div class="options-container tight-gap">
                     <label class="option-card simple">
-                        <input type="radio" name="routine_joke" value="jokes">
+                        <input type="radio" name="bullying_reason" value="bully">
                         <div class="option-content simple-content">
-                            <h3>Sinir bozucu şakalar yaparak</h3>
+                            <h3>Elnur'un gerçekten zorba bir kişiliğe sahip olmasından</h3>
                         </div>
                     </label>
 
                     <label class="option-card simple">
-                        <input type="radio" name="routine_joke" value="fail">
+                        <input type="radio" name="bullying_reason" value="fun">
                         <div class="option-content simple-content">
-                            <h3>Gülümsemeye çalışıp başarısız olarak</h3>
+                            <h3>Sadece hoşuna gittiği için</h3>
                         </div>
                     </label>
 
-                    <label class="option-card simple special-option">
-                        <input type="radio" name="routine_joke" value="smile">
+                    <label class="option-card simple highlight-red">
+                        <input type="radio" name="bullying_reason" value="love">
                         <div class="option-content simple-content">
-                            <h3>Anlamsızca Gülümseyip, Odak Noktasını Kaybederek</h3>
+                            <h3>Çok Sevdiğinden ve Birlikte Vakit Geçirmekten Keyif Aldığından</h3>
                         </div>
                     </label>
                 </div>
@@ -202,7 +203,7 @@
             </div>
         </div>
 
-        <!-- Step 6: Privilege Selection (Old Step 4) -->
+        <!-- Step 6: Privilege Selection (Platinum RED) -->
         <div id="step-6" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 6/8</div>
@@ -228,12 +229,13 @@
                         </div>
                     </label>
 
-                    <label class="option-card special-option">
+                    <label class="option-card highlight-red">
                         <input type="radio" name="privilege" value="platinum">
                         <div class="option-content">
                             <div class="icon">💎</div>
-                            <h3>Platinum Kalp</h3>
-                            <p>Bir kez kullanılabilir "Özel Kart" hakkı. Tarih ve mekan sizin tarafınızdan seçilir.</p>
+                            <h3>★ Platinum Kalp Üyeliği</h3>
+                            <p>Bir kez kullanılabilir "Özel Kart" hakkı. Bu kart, bir tarih ve mekanın tarafınızca
+                                seçilmesini zorunlu kılar.</p>
                         </div>
                     </label>
                 </div>
@@ -242,11 +244,11 @@
             </div>
         </div>
 
-        <!-- Step 7: Final Definition (Old Step 5) -->
+        <!-- Step 7: Final Validation (Simplified) -->
         <div id="step-7" class="screen hidden">
             <div class="card fade-in-up">
                 <div class="header-badge">Adım 7/8</div>
-                <h2 class="title-serif">Nihai Tanımlama</h2>
+                <h2 class="title-serif">Nihai Onay</h2>
 
                 <div class="summary-box">
                     <p><strong>Aday:</strong> Fatima</p>
@@ -254,11 +256,11 @@
                 </div>
 
                 <div class="final-auth">
-                    <p class="label-text">Bu kulübün Kurucu Yöneticisinin (Elnur) gözünde kendinizi en dürüst şekilde
-                        nasıl tanımlarsınız?</p>
-                    <input type="password" id="final-code" placeholder="Tanımını Yaz..." autocomplete="off">
-                    <button id="btn-finish" class="btn-primary">Formu Gönder</button>
-                    <p id="error-msg-7" class="error-msg hidden">Yanlış cevap. İpucu: K... K...</p>
+                    <p class="question-text">
+                        "Tüm bu sorulara verdiğiniz cevapların, üyeliğinizin kalbimdeki önemini yansıttığını onaylıyor
+                        musunuz?"
+                    </p>
+                    <button id="btn-finish" class="btn-primary btn-success">Formu Gönder ve Üyeliği Başlat</button>
                 </div>
             </div>
         </div>
@@ -271,22 +273,22 @@
                 <h3 class="subtitle">PLATINUM KALP ÜYELİĞİNİZ RESMEN ONAYLANDI</h3>
 
                 <div class="letter-content">
-                    <p>Sayın <strong>Fatima</strong>,</p>
-                    <p>Tüm anılarımız (o minicik dağlık kampüs dahil) ve eşsiz çekiciliğiniz Yönetim Kurulumuzca
-                        dikkatle incelenmiştir. Bu form, bana getirdiğiniz tüm o 'dağları' ve benimle eşleştiğiniz için
-                        kazandığınız o tek oyunu hatırlatmaktan ibaretti.</p>
+                    <p>Sevgili <strong>Fatima</strong>,</p>
+                    <p>Tüm anılarımız (o dağlık kampüs şakası dahil) ve <strong>göz alıcı çekiciliğiniz</strong> Yönetim
+                        Kurulumuzca dikkatle incelenmiştir. Bu formun amacı, size ne kadar değer verdiğimi resmiyetle
+                        kanıtlamaktı.</p>
 
                     <p id="success-privilege-msg" class="highlight-paragraph"></p>
 
                     <div class="note-box">
-                        <strong>Yönetim Kurulu Notu:</strong>
-                        <p>Bu üyelik, Tanışma Yıldönümümüzde Yönetici'nin dikkatini çeken <strong>parlak zekanız, eşsiz
+                        <strong>Kurulumuzun Kararı:</strong>
+                        <p>Bu üyelik, Tanışma Yıldönümümüz'den beri hayatımı aydınlatan <strong>parlak zekanız, eşsiz
                                 mizahınız ve daima pozitif enerjiniz</strong> nedeniyle özel olarak atanmıştır.</p>
                     </div>
 
                     <div class="signature">
-                        <p>Kurucu ve Tek Yetkili Yönetici</p>
-                        <p class="signature-name">Elnur ("Ukala")</p>
+                        <p>Kurucu ve Tek Yetkili</p>
+                        <p class="signature-name">Elnur</p>
                     </div>
                 </div>
             </div>
