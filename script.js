@@ -205,6 +205,102 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Data Collection & Sharing ---
+    window.formData = {
+        step1: null,
+        step2: null,
+        step3: null,
+        step4: null,
+        step5: null,
+        privilege: null
+    };
+
+    window.shareToWhatsApp = function () {
+        // Collect final pieces if not already set (e.g. from input fields)
+        const step3Val = document.getElementById('step3-memory') ? document.getElementById('step3-memory').value : "Belirtilmedi";
+        window.formData.step3 = step3Val;
+
+        const text = `*VIP Üyelik Formu Cevapları (Fatima)*\n\n` +
+            `*1. Görsel Etki:* ${window.formData.step1}\n` +
+            `*2. Konum (Minibüs):* ${window.formData.step2}\n` +
+            `*3. Özel Anı:* ${window.formData.step3}\n` +
+            `*4. Oyun Zaferi:* ${window.formData.step4}\n` +
+            `*5. İlişki Nedeni:* ${window.formData.step5}\n` +
+            `*6. Ayrıcalık:* ${window.formData.privilege}\n\n` +
+            `📌 *Sonuc:* Platinum Kalp Onaylandi.`;
+
+        // Encode for URL
+        const encodedText = encodeURIComponent(text);
+        const phoneNumber = "905000000000"; // Placeholder - User to update
+        const url = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+
+        window.open(url, '_blank');
+    }
+
+    // Update global handlers to save data
+    const originalHandleStep1 = window.handleStep1;
+    window.handleStep1 = function (choice) {
+        window.formData.step1 = (choice === 'yes') ? "Evet, Tamamen Doğru" : "Hayır, Hata";
+        originalHandleStep1(choice);
+    }
+
+    const originalHandleStep2 = window.handleStep2;
+    window.handleStep2 = function () {
+        const selected = document.querySelector('input[name="location_joke"]:checked');
+        if (selected && selected.value === 'minibus') {
+            window.formData.step2 = "Minibüs/Dolmuş (Doğru)";
+        } else {
+            window.formData.step2 = "Yanlış Cevap"; // Or more specific based on the else branch
+        }
+        originalHandleStep2();
+    }
+
+    // Step 3 is saved on share or we can save on next
+    const originalHandleStep3 = window.handleStep3;
+    window.handleStep3 = function () {
+        // Data saved in shareToWhatsApp logic from input
+        originalHandleStep3();
+    }
+
+    const originalHandleStep4 = window.handleStep4;
+    window.handleStep4 = function () {
+        const selected = document.querySelector('input[name="game_joke"]:checked');
+        if (selected && selected.value === 'team') {
+            window.formData.step4 = "Takım Zaferi (Doğru)";
+        } else {
+            window.formData.step4 = "Yanlış Cevap";
+        }
+        originalHandleStep4();
+    }
+
+    const originalHandleStep5 = window.handleStep5;
+    window.handleStep5 = function () {
+        const selected = document.querySelector('input[name="bullying_reason"]:checked');
+        if (selected) {
+            const val = selected.value;
+            const map = {
+                'love': "Çok Sevdiğinden (Doğru)",
+                'bully': "Zorba Olduğu İçin",
+                'fun': "Hoşuna Gittiği İçin"
+            };
+            window.formData.step5 = map[val];
+        } else {
+            window.formData.step5 = "Seçim Yapılmadı";
+        }
+        originalHandleStep5();
+    }
+
+    const originalHandleStep6 = window.handleStep6;
+    window.handleStep6 = function () {
+        // Saved in userSelections
+        window.formData.privilege = window.userSelections.privilege || "Seçilmedi";
+        originalHandleStep6();
+    }
+
+    // --- Finalization ---
+    // (Existing finalizeForm logic remains, just exposing share function)
+
+
     function finalizeForm() {
         const msgEl = document.getElementById('success-privilege-msg');
         let text = "Seçtiğiniz ayrıcalık hemen devreye girmiştir.";
